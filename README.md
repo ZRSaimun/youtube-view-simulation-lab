@@ -8,7 +8,7 @@ Open `index.html` or serve this directory with any static web server. No build s
 
 ## Genuine public count
 
-Create a YouTube Data API v3 key in Google Cloud and enable the YouTube Data API v3 for its project. Paste the key into the page to retrieve `statistics.viewCount` for this video. The key is held in this browser's session storage only; restrict the key to the YouTube Data API and, where practical, to your website referrer. Without a key, the genuine view count is shown as unavailable. YouTube may apply API quotas or omit counts.
+Create a YouTube Data API v3 key in Google Cloud and enable the YouTube Data API v3 for its project. Paste the key into the page to retrieve `statistics.viewCount` for this video. The key is held in this browser's session storage and sent to Google only for the YouTube Data API request; this site has no server-side key storage. Restrict the key to the YouTube Data API and, where practical, to your website referrer. Without a key, the genuine view count is shown as unavailable. YouTube may apply API quotas or omit counts.
 
 ## Safety and interpretation
 

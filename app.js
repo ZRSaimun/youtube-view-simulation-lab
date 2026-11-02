@@ -1,3 +1,4 @@
+(() => {
   const VIDEO_ID = 'vv6Cn16scjU';
   const $ = (s) => document.querySelector(s);
   const simEl = $('#sim-views'), realEl = $('#real-views'), statusEl = $('#api-status');

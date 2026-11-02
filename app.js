@@ -3,7 +3,9 @@
   const $ = (s) => document.querySelector(s);
   const simEl = $('#sim-views'), realEl = $('#real-views'), statusEl = $('#api-status');
   const keyInput = $('#api-key'), canvas = $('#chart'), ctx = canvas.getContext('2d');
+  const thumbnail = $('#thumbnail');
   let simulated = 0, running = false, timer = null, previous = null, genuineBaseline = null;
+  let thumbnailFallback = 0;
   const points = [{ t: Date.now(), v: 0 }];
   const fmt = (n) => Math.floor(n).toLocaleString('en-US');
 
@@ -18,6 +20,17 @@
       $('#player').title = data.title || 'Selected YouTube video';
     } catch (_) { /* Keep the video ID fallback. */ }
   }
+  thumbnail.addEventListener('error', () => {
+    if (thumbnailFallback === 0) {
+      thumbnailFallback = 1;
+      thumbnail.src = `https://img.youtube.com/vi/${VIDEO_ID}/mqdefault.jpg`;
+      return;
+    }
+    const fallback = document.createElement('div');
+    fallback.className = 'thumbnail-fallback';
+    fallback.textContent = 'YouTube thumbnail unavailable';
+    thumbnail.replaceWith(fallback);
+  });
   async function refreshReal() {
     const key = keyInput.value.trim() || sessionStorage.getItem('viewlab-youtube-key') || '';
     if (!key) { statusEl.textContent = 'API KEY NOT SET'; statusEl.style.color = '#dfb36c'; return; }

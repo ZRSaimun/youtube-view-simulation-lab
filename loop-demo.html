@@ -3,28 +3,76 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>HTML Loop Demo — Class Project</title>
+<meta name="theme-color" content="#0b1020">
+<title>HTML Video Autoplay &amp; Loop — Class Demo</title>
 <style>
-:root{color-scheme:dark;font:16px/1.5 system-ui,sans-serif;background:#0b1020;color:#eef2ff}*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px}.card{width:min(780px,100%);background:#151d31;border:1px solid #34415e;border-radius:22px;padding:clamp(22px,5vw,42px);box-shadow:0 24px 80px #0007}h1{margin:0 0 8px;font-size:clamp(1.7rem,5vw,2.6rem)}p{color:#bcc8df}.stage{height:270px;border-radius:16px;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at center,#243b69,#0d1426 72%);margin:24px 0}.orbit{width:120px;height:120px;border:2px solid #8399c9;border-radius:50%;position:relative;animation:spin 3s linear infinite}.planet{width:28px;height:28px;background:#69e2cf;border-radius:50%;position:absolute;left:46px;top:-14px;box-shadow:0 0 30px #69e2cf}.core{position:absolute;inset:38px;background:#ff6788;border-radius:50%;box-shadow:0 0 35px #ff6788}.paused *{animation-play-state:paused!important}@keyframes spin{to{transform:rotate(360deg)}}.controls{display:flex;gap:12px;flex-wrap:wrap}button{border:0;border-radius:10px;padding:11px 18px;background:#7c8dff;color:#0a1020;font-weight:700;cursor:pointer}button.secondary{background:#34415e;color:#eef2ff}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#0b1020;border:1px solid #34415e;border-radius:12px;padding:16px;color:#a9f0df}.note{font-size:.92rem;border-left:3px solid #69e2cf;padding-left:12px}
+:root{color-scheme:dark;font:16px/1.55 system-ui,sans-serif;background:#0b1020;color:#eef2ff}*{box-sizing:border-box}body{margin:0;min-height:100vh;padding:24px;display:grid;place-items:center}.card{width:min(860px,100%);background:#151d31;border:1px solid #34415e;border-radius:22px;padding:clamp(22px,5vw,42px);box-shadow:0 24px 80px #0007}h1{margin:0 0 8px;font-size:clamp(1.8rem,5vw,2.7rem);line-height:1.12}h2{margin:30px 0 12px;font-size:1.25rem}.eyebrow,.muted{color:#9caed0}.eyebrow{font-size:.78rem;letter-spacing:.12em;font-weight:700}p{color:#c2cce0}.video-shell{position:relative;margin:24px 0 14px;min-height:220px;aspect-ratio:16/9;background:#080c16;border:1px solid #34415e;border-radius:15px;overflow:hidden}.video-shell video{display:block;width:100%;height:100%;min-height:220px;object-fit:contain}.placeholder{position:absolute;inset:0;display:grid;place-content:center;text-align:center;padding:28px;background:linear-gradient(140deg,#131e36,#0b1020);pointer-events:none}.placeholder[hidden]{display:none}.placeholder strong{font-size:1.1rem;color:#fff}.placeholder span{max-width:520px;margin-top:8px;color:#b8c5dd}.file-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:16px 0}.file-row label{display:inline-block;background:#7c8dff;color:#0a1020;font-weight:750;padding:11px 17px;border-radius:10px;cursor:pointer}.file-row input{position:absolute;width:1px;height:1px;clip:rect(0,0,0,0);overflow:hidden}.file-row input:focus-visible+label{outline:3px solid #fff;outline-offset:3px}#status{color:#a9f0df;font-size:.92rem}.attrs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.attr{padding:15px;border:1px solid #34415e;background:#10182a;border-radius:12px}.attr code{font-weight:750;color:#a9f0df}.attr p{margin:6px 0 0;font-size:.93rem}.snippet{white-space:pre-wrap;overflow-wrap:anywhere;background:#080c16;border:1px solid #34415e;border-radius:12px;padding:16px;color:#a9f0df;overflow-x:auto}.note{font-size:.92rem;border-left:3px solid #69e2cf;padding-left:13px}.footer{margin-top:26px;padding-top:16px;border-top:1px solid #34415e;color:#9caed0;font-size:.84rem}@media(max-width:560px){body{padding:12px}.card{padding:21px 17px;border-radius:17px}.attrs{grid-template-columns:1fr}.video-shell{min-height:190px}.video-shell video{min-height:190px}}
 </style>
 </head>
 <body>
 <main class="card">
-<p>CLASS DEMO · HTML MEDIA LOOP CONCEPT</p>
-<h1>What does “loop forever” do?</h1>
-<p>This local animation repeats until you pause it. It demonstrates looping behavior without sending playback to YouTube or changing any video’s view count.</p>
-<div class="stage" id="stage" role="img" aria-label="A planet orbiting a glowing star in a repeating animation"><div class="orbit"><div class="planet"></div><div class="core"></div></div></div>
-<div class="controls"><button id="toggle" type="button">Pause demo</button><button class="secondary" id="restart" type="button">Restart demo</button></div>
-<h2>For a local HTML5 video</h2>
-<pre>&lt;video controls loop&gt;
+<p class="eyebrow">CLASS DEMO · HTML VIDEO ELEMENT</p>
+<h1>Autoplay and loop a local video</h1>
+<p>Choose an MP4 file you own or have permission to use. The file is opened locally in this browser; it is not uploaded anywhere.</p>
+
+<div class="video-shell">
+  <video id="demo-video" controls autoplay muted loop playsinline preload="metadata" aria-label="Local MP4 demo video">
+    <source id="demo-source" src="sample.mp4" type="video/mp4">
+    Your browser does not support the HTML video element.
+  </video>
+  <div class="placeholder" id="placeholder">
+    <strong>No sample MP4 is included</strong>
+    <span>To use a project file, add your permitted clip as <code>sample.mp4</code> beside this page. Or select an MP4 below to preview it locally.</span>
+  </div>
+</div>
+<div class="file-row">
+  <input id="file-picker" type="file" accept="video/mp4,.mp4" aria-label="Choose a local MP4 video">
+  <label for="file-picker">Choose local MP4</label>
+  <span id="status" role="status" aria-live="polite">Waiting for a video file.</span>
+</div>
+
+<h2>What each attribute means</h2>
+<div class="attrs">
+  <article class="attr"><code>autoplay</code><p>Asks the browser to start playback when the video is ready. Browser policies commonly require muted playback for autoplay.</p></article>
+  <article class="attr"><code>muted</code><p>Starts without sound. This improves the chance that browser autoplay is allowed; the viewer can unmute with the native controls.</p></article>
+  <article class="attr"><code>loop</code><p>Restarts the video automatically when it reaches the end.</p></article>
+  <article class="attr"><code>controls</code><p>Shows the browser’s built-in playback controls, including play, pause, seek, volume, and fullscreen where supported.</p></article>
+</div>
+
+<h2>W3Schools-style HTML example</h2>
+<pre class="snippet">&lt;video width="640" controls autoplay muted loop&gt;
   &lt;source src="sample.mp4" type="video/mp4"&gt;
+  Your browser does not support the video tag.
 &lt;/video&gt;</pre>
-<p class="note"><strong>YouTube note:</strong> the IFrame Player API uses <code>loop=1</code> together with <code>playlist=VIDEO_ID</code> for a single-video loop. This class demo intentionally doesn’t autoplay or repeatedly play a real YouTube video, because repeated playback can create artificial engagement.</p>
+<p class="note"><strong>Local-file note:</strong> This page only loads a video you add to the project or choose from your device. It does not embed or automatically play a third-party video.</p>
+<div class="footer">Autoplay may be blocked by browser settings. Use the visible video controls to start or pause playback.</div>
 </main>
 <script>
-const stage=document.querySelector('#stage'), toggle=document.querySelector('#toggle');
-toggle.addEventListener('click',()=>{const paused=stage.classList.toggle('paused');toggle.textContent=paused?'Resume demo':'Pause demo'});
-document.querySelector('#restart').addEventListener('click',()=>{stage.classList.remove('paused');stage.querySelector('.orbit').style.animation='none';void stage.offsetWidth;stage.querySelector('.orbit').style.animation='';toggle.textContent='Pause demo'});
+const video=document.querySelector('#demo-video');
+const source=document.querySelector('#demo-source');
+const picker=document.querySelector('#file-picker');
+const placeholder=document.querySelector('#placeholder');
+const status=document.querySelector('#status');
+let objectUrl=null;
+
+function showVideo(){placeholder.hidden=true;status.textContent='Video loaded. It is muted and set to loop; use the player controls to play or pause.'}
+function showPlaceholder(){placeholder.hidden=false}
+video.addEventListener('loadeddata',showVideo);
+video.addEventListener('error',()=>{if(!objectUrl){showPlaceholder();status.textContent='No sample.mp4 found. Choose a local MP4 or add sample.mp4 beside this page.'}});
+picker.addEventListener('change',()=>{
+  const file=picker.files && picker.files[0];
+  if(!file)return;
+  if(objectUrl)URL.revokeObjectURL(objectUrl);
+  objectUrl=URL.createObjectURL(file);
+  video.pause();
+  source.removeAttribute('src');
+  video.src=objectUrl;
+  video.load();
+  video.muted=true;
+  video.loop=true;
+  video.play().then(()=>{showVideo()}).catch(()=>{showVideo();status.textContent='Video loaded. Press Play in the controls if autoplay is blocked.'});
+});
+window.addEventListener('pagehide',()=>{if(objectUrl)URL.revokeObjectURL(objectUrl)});
 </script>
 </body>
 </html>

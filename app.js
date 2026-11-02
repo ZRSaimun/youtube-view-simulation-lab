@@ -1,4 +1,3 @@
-(() => {
   const VIDEO_ID = 'vv6Cn16scjU';
   const $ = (s) => document.querySelector(s);
   const simEl = $('#sim-views'), realEl = $('#real-views'), statusEl = $('#api-status');
@@ -15,12 +14,14 @@
       if (!response.ok) throw new Error('Metadata unavailable');
       const data = await response.json();
       $('#video-title').textContent = data.title || `YouTube video · ${VIDEO_ID}`;
-      $('#thumbnail').src = data.thumbnail_url || `https://i.ytimg.com/vi/${VIDEO_ID}/hqdefault.jpg`;
-      $('#thumbnail').alt = data.title ? `Thumbnail: ${data.title}` : 'YouTube video thumbnail';
+      thumbnail.src = data.thumbnail_url || `https://i.ytimg.com/vi/${VIDEO_ID}/hqdefault.jpg`;
+      thumbnail.alt = data.title ? `Thumbnail: ${data.title}` : 'YouTube video thumbnail';
+      if (thumbnail.complete && thumbnail.naturalWidth === 0) thumbnail.dispatchEvent(new Event('error'));
       $('#player').title = data.title || 'Selected YouTube video';
     } catch (_) { /* Keep the video ID fallback. */ }
   }
   thumbnail.addEventListener('error', () => {
+    if (!thumbnail.isConnected) return;
     if (thumbnailFallback === 0) {
       thumbnailFallback = 1;
       thumbnail.src = `https://img.youtube.com/vi/${VIDEO_ID}/mqdefault.jpg`;

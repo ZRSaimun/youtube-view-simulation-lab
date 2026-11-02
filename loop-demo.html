@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HTML Loop Demo — Class Project</title>
+<style>
+:root{color-scheme:dark;font:16px/1.5 system-ui,sans-serif;background:#0b1020;color:#eef2ff}*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px}.card{width:min(780px,100%);background:#151d31;border:1px solid #34415e;border-radius:22px;padding:clamp(22px,5vw,42px);box-shadow:0 24px 80px #0007}h1{margin:0 0 8px;font-size:clamp(1.7rem,5vw,2.6rem)}p{color:#bcc8df}.stage{height:270px;border-radius:16px;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at center,#243b69,#0d1426 72%);margin:24px 0}.orbit{width:120px;height:120px;border:2px solid #8399c9;border-radius:50%;position:relative;animation:spin 3s linear infinite}.planet{width:28px;height:28px;background:#69e2cf;border-radius:50%;position:absolute;left:46px;top:-14px;box-shadow:0 0 30px #69e2cf}.core{position:absolute;inset:38px;background:#ff6788;border-radius:50%;box-shadow:0 0 35px #ff6788}.paused *{animation-play-state:paused!important}@keyframes spin{to{transform:rotate(360deg)}}.controls{display:flex;gap:12px;flex-wrap:wrap}button{border:0;border-radius:10px;padding:11px 18px;background:#7c8dff;color:#0a1020;font-weight:700;cursor:pointer}button.secondary{background:#34415e;color:#eef2ff}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#0b1020;border:1px solid #34415e;border-radius:12px;padding:16px;color:#a9f0df}.note{font-size:.92rem;border-left:3px solid #69e2cf;padding-left:12px}
+</style>
+</head>
+<body>
+<main class="card">
+<p>CLASS DEMO · HTML MEDIA LOOP CONCEPT</p>
+<h1>What does “loop forever” do?</h1>
+<p>This local animation repeats until you pause it. It demonstrates looping behavior without sending playback to YouTube or changing any video’s view count.</p>
+<div class="stage" id="stage" role="img" aria-label="A planet orbiting a glowing star in a repeating animation"><div class="orbit"><div class="planet"></div><div class="core"></div></div></div>
+<div class="controls"><button id="toggle" type="button">Pause demo</button><button class="secondary" id="restart" type="button">Restart demo</button></div>
+<h2>For a local HTML5 video</h2>
+<pre>&lt;video controls loop&gt;
+  &lt;source src="sample.mp4" type="video/mp4"&gt;
+&lt;/video&gt;</pre>
+<p class="note"><strong>YouTube note:</strong> the IFrame Player API uses <code>loop=1</code> together with <code>playlist=VIDEO_ID</code> for a single-video loop. This class demo intentionally doesn’t autoplay or repeatedly play a real YouTube video, because repeated playback can create artificial engagement.</p>
+</main>
+<script>
+const stage=document.querySelector('#stage'), toggle=document.querySelector('#toggle');
+toggle.addEventListener('click',()=>{const paused=stage.classList.toggle('paused');toggle.textContent=paused?'Resume demo':'Pause demo'});
+document.querySelector('#restart').addEventListener('click',()=>{stage.classList.remove('paused');stage.querySelector('.orbit').style.animation='none';void stage.offsetWidth;stage.querySelector('.orbit').style.animation='';toggle.textContent='Pause demo'});
+</script>
+</body>
+</html>

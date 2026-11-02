@@ -1,120 +1,131 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>YouTube Embed and HTML Video Loop Demo</title>
-  <style>
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      padding: 24px;
-      background: #0b1020;
-      color: #eef2ff;
-      font: 16px/1.55 system-ui, sans-serif;
-    }
-
-    main {
-      width: min(860px, 100%);
-      margin: 0 auto;
-      padding: clamp(20px, 5vw, 40px);
-      background: #151d31;
-      border: 1px solid #34415e;
-      border-radius: 20px;
-    }
-
-    h1, h2 { line-height: 1.2; }
-    p { color: #c2cce0; }
-
-    .player {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      margin: 20px 0;
-      background: #080c16;
-      border-radius: 14px;
-      overflow: hidden;
-    }
-
-    iframe, video {
-      display: block;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-    video {
-      aspect-ratio: 16 / 9;
-      background: #080c16;
-    }
-
-    code, pre {
-      color: #a9f0df;
-    }
-
-    pre {
-      overflow-x: auto;
-      padding: 16px;
-      background: #080c16;
-      border: 1px solid #34415e;
-      border-radius: 12px;
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-    }
-
-    .note {
-      padding-left: 14px;
-      border-left: 3px solid #69e2cf;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080b12">
+<title>500-View Cinema Wall — Local Video Loop Demo</title>
+<style>
+:root{color-scheme:dark;font:16px/1.5 system-ui,sans-serif;background:#080b12;color:#f4f6fb}*{box-sizing:border-box}body{margin:0;min-height:100vh;overflow:hidden;background:#080b12}.wall{position:fixed;inset:0;overflow:hidden;background:#080b12}.wall canvas{width:100%;height:100%;display:block;filter:saturate(.82) brightness(.64)}.wall:after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 24%,rgba(3,6,12,.3) 72%,rgba(3,6,12,.72))}.shade{position:fixed;inset:0;background:linear-gradient(180deg,rgba(5,8,14,.18),rgba(5,8,14,.43));pointer-events:none}.panel{position:relative;z-index:1;width:min(650px,calc(100% - 28px));max-height:calc(100vh - 28px);overflow:auto;margin:14px auto;padding:clamp(20px,4vw,34px);border:1px solid rgba(198,215,244,.2);border-radius:20px;background:rgba(12,17,28,.86);backdrop-filter:blur(16px);box-shadow:0 26px 90px #0009;top:50%;transform:translateY(-50%)}.eyebrow{margin:0 0 12px;color:#a8c0ec;letter-spacing:.14em;font-weight:750;font-size:.75rem}h1{margin:0;font-size:clamp(1.75rem,5vw,2.6rem);line-height:1.08}h1 em{font-style:normal;color:#86d9d0}.lede{margin:13px 0 20px;color:#c4ccda}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}.stat{border:1px solid #354258;border-radius:12px;background:#101827;padding:13px 15px}.stat small{display:block;color:#9caec0;letter-spacing:.08em;text-transform:uppercase;font-size:.7rem}.stat strong{display:block;margin-top:4px;font-size:1.2rem}.controls{display:flex;gap:10px;flex-wrap:wrap}.controls button,.file-row label{border:0;border-radius:9px;padding:11px 15px;background:#83d9cf;color:#081217;font-weight:800;cursor:pointer}.controls .secondary{background:#26374c;color:#eef4ff;border:1px solid #415471}.file-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px}.file-row label{background:#344761;color:#eef4ff;display:inline-block}.file-row input{position:absolute;width:1px;height:1px;clip:rect(0,0,0,0);overflow:hidden}.file-row input:focus-visible+label{outline:3px solid #fff;outline-offset:3px}#status{font-size:.88rem;color:#a9f0df}.lesson{margin-top:20px;padding-top:16px;border-top:1px solid #354258}.lesson h2{margin:0 0 8px;font-size:1rem}.lesson p{margin:7px 0;color:#bdc8d9;font-size:.91rem}.lesson code{color:#a9f0df}.source-note{margin-top:12px!important;font-size:.8rem!important;color:#9faec2!important}.hidden-video{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;left:-9999px} @media(max-width:560px){.panel{top:auto;bottom:14px;transform:none;margin:0 14px;width:calc(100% - 28px);max-height:calc(100vh - 28px);padding:19px}.stats{gap:8px}.stat{padding:10px}.stat strong{font-size:1rem}.lede{font-size:.93rem}}
+</style>
 </head>
 <body>
-  <main>
-    <p>CLASS DEMO · YOUTUBE EMBED AND HTML VIDEO</p>
-    <h1>Embed a YouTube video</h1>
-    <p>
-      This is YouTube’s embedded player. The viewer chooses when to play it
-      using the player controls.
-    </p>
+<div class="wall" aria-hidden="true"><canvas id="wall-canvas"></canvas></div>
+<div class="shade" aria-hidden="true"></div>
+<video id="source-video" class="hidden-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+  <source src="assets/orbit-demo.mp4" type="video/mp4">
+</video>
+<main class="panel">
+  <p class="eyebrow">LOCAL HTML VIDEO LESSON · CINEMA WALL</p>
+  <h1>One loop.<br><em>500 tiny screens.</em></h1>
+  <p class="lede">The original orbit animation fills the background as a 25 × 20 video wall. It plays muted and loops; the controls below start or pause the single local video feeding all 500 tiles.</p>
 
-    <div class="player">
-      <iframe
-        src="https://www.youtube.com/embed/vv6Cn16scjU?playlist=vv6Cn16scjU&loop=1">
-        title="My YouTube video"
-        allow="encrypted-media; picture-in-picture; fullscreen"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen>
-      </iframe>
-    </div>
+  <section class="stats" aria-label="Video wall status">
+    <div class="stat"><small>Tiles</small><strong>500 · 25 × 20</strong></div>
+    <div class="stat"><small>Playback</small><strong id="play-label">Starting…</strong></div>
+  </section>
+  <div class="controls">
+    <button id="play" type="button">▶ Play wall</button>
+    <button id="pause" class="secondary" type="button">Ⅱ Pause wall</button>
+  </div>
+  <div class="file-row">
+    <input id="file-picker" type="file" accept="video/mp4,.mp4" aria-label="Choose a local MP4 video">
+    <label for="file-picker">Choose another local MP4</label>
+    <span id="status" role="status" aria-live="polite">Loading the included orbit video…</span>
+  </div>
+  <section class="lesson">
+    <h2>How the HTML video attributes work</h2>
+    <p><code>autoplay</code> asks the browser to start when ready. <code>muted</code> helps autoplay work within browser policies. <code>loop</code> restarts the video at its end. <code>controls</code> adds native player controls; this canvas wall has its own Play and Pause buttons.</p>
+    <p class="source-note">The wall draws one original local MP4 into 500 visual tiles for performance. It does not open YouTube, create 500 separate players, or affect any video’s view count. Picked files stay in this browser and are not uploaded.</p>
+  </section>
+</main>
+<script>
+const COLS=25, ROWS=20, TILE_COUNT=COLS*ROWS;
+const canvas=document.querySelector('#wall-canvas');
+const ctx=canvas.getContext('2d');
+const tile=document.createElement('canvas');
+const tileCtx=tile.getContext('2d');
+const video=document.querySelector('#source-video');
+const picker=document.querySelector('#file-picker');
+const status=document.querySelector('#status');
+const playLabel=document.querySelector('#play-label');
+let objectUrl=null, pattern=null, lastFrame=0, frameRequest=0;
 
-    <h2>HTML autoplay and loop example</h2>
-    <p>
-      The <code>&lt;video&gt;</code> element needs a direct MP4 file, such as
-      <code>sample.mp4</code>. It cannot use a YouTube watch link as its source.
-      Add a local MP4 you own or have permission to use beside this HTML file:
-    </p>
-
-    <video controls autoplay muted loop playsinline>
-      <source src="https://www.youtube.com/embed/vv6Cn16scjU?playlist=vv6Cn16scjU&loop=1">
-      Your browser does not support the video element.
-    </video>
-
-    <h2>What the attributes mean</h2>
-    <ul>
-      <li><code>autoplay</code> asks the browser to start the local video automatically.</li>
-      <li><code>muted</code> starts it without sound; browsers commonly require this for autoplay.</li>
-      <li><code>loop</code> restarts the local video when it reaches the end.</li>
-      <li><code>controls</code> displays play, pause, seek, and volume controls.</li>
-    </ul>
-
-    <pre>&lt;video controls autoplay muted loop&gt;
-  &lt;source src="https://www.youtube.com/embed/vv6Cn16scjU?playlist=vv6Cn16scjU&loop=1">&gt;
-&lt;/video&gt;</pre>
-
-    <p class="note">
-      Autoplay may be blocked by browser settings. The YouTube player above
-      remains viewer-controlled; the loop example uses your local MP4 file.
-    </p>
-  </main>
+function resize(){
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  canvas.width=Math.round(innerWidth*dpr);
+  canvas.height=Math.round(innerHeight*dpr);
+  tile.width=Math.ceil(canvas.width/COLS);
+  tile.height=Math.ceil(canvas.height/ROWS);
+  pattern=null;
+  drawFrame();
+}
+function drawFrame(){
+  if(!video.videoWidth||!canvas.width)return;
+  tileCtx.clearRect(0,0,tile.width,tile.height);
+  const scale=Math.max(tile.width/video.videoWidth,tile.height/video.videoHeight);
+  const sw=tile.width/scale, sh=tile.height/scale;
+  const sx=(video.videoWidth-sw)/2, sy=(video.videoHeight-sh)/2;
+  tileCtx.drawImage(video,sx,sy,sw,sh,0,0,tile.width,tile.height);
+  pattern=ctx.createPattern(tile,'repeat');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle=pattern;
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+}
+function animate(now){
+  frameRequest=requestAnimationFrame(animate);
+  if(video.paused||video.ended||now-lastFrame<40)return;
+  lastFrame=now;
+  drawFrame();
+}
+function setPlaying(){
+  playLabel.textContent='Muted · looping';
+  status.textContent='Playing the local video across all 500 tiles.';
+}
+function setPaused(){
+  playLabel.textContent='Paused';
+  status.textContent='Paused. Press Play wall to resume the loop.';
+}
+video.addEventListener('loadeddata',()=>{
+  drawFrame();
+  if(!video.paused)setPlaying();
+});
+video.addEventListener('play',setPlaying);
+video.addEventListener('pause',setPaused);
+video.addEventListener('error',()=>{
+  if(!objectUrl){
+    playLabel.textContent='Sample unavailable';
+    status.textContent='Could not load assets/orbit-demo.mp4. Check the sample file path.';
+  }
+});
+document.querySelector('#play').addEventListener('click',()=>{
+  video.muted=true;
+  video.loop=true;
+  video.play().then(setPlaying).catch(()=>{status.textContent='Playback was blocked. Press Play wall again or check browser media settings.'});
+});
+document.querySelector('#pause').addEventListener('click',()=>video.pause());
+picker.addEventListener('change',()=>{
+  const file=picker.files&&picker.files[0];
+  if(!file)return;
+  if(objectUrl)URL.revokeObjectURL(objectUrl);
+  objectUrl=URL.createObjectURL(file);
+  video.src=objectUrl;
+  video.load();
+  video.muted=true;
+  video.loop=true;
+  video.play().then(setPlaying).catch(()=>{status.textContent='Video loaded. Press Play wall to begin.'});
+});
+window.addEventListener('resize',resize);
+window.addEventListener('pagehide',()=>{
+  cancelAnimationFrame(frameRequest);
+  if(objectUrl)URL.revokeObjectURL(objectUrl);
+});
+resize();
+frameRequest=requestAnimationFrame(animate);
+video.play().then(setPlaying).catch(()=>{
+  playLabel.textContent='Tap to start';
+  status.textContent='Autoplay was blocked. Press Play wall to start the muted looping video.';
+});
+</script>
 </body>
 </html>

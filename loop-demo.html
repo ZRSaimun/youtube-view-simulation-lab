@@ -13,22 +13,22 @@
 <main class="card">
 <p class="eyebrow">CLASS DEMO · HTML VIDEO ELEMENT</p>
 <h1>Autoplay and loop a local video</h1>
-<p>Choose an MP4 file you own or have permission to use. The file is opened locally in this browser; it is not uploaded anywhere.</p>
+<p>The player includes an original orbit animation MP4 created for this lesson. It autoplays muted and loops; you can also choose another MP4 you own or have permission to use. A chosen file stays in this browser and is never uploaded.</p>
 
 <div class="video-shell">
   <video id="demo-video" controls autoplay muted loop playsinline preload="metadata" aria-label="Local MP4 demo video">
-    <source id="demo-source" src="sample.mp4" type="video/mp4">
+    <source id="demo-source" src="assets/orbit-demo.mp4" type="video/mp4">
     Your browser does not support the HTML video element.
   </video>
   <div class="placeholder" id="placeholder">
-    <strong>No sample MP4 is included</strong>
-    <span>To use a project file, add your permitted clip as <code>sample.mp4</code> beside this page. Or select an MP4 below to preview it locally.</span>
+    <strong>Original sample: orbit-demo.mp4</strong>
+    <span>This locally created orbit animation is the video shown in the player. Choose your own permitted MP4 below if you want to try a different clip.</span>
   </div>
 </div>
 <div class="file-row">
   <input id="file-picker" type="file" accept="video/mp4,.mp4" aria-label="Choose a local MP4 video">
   <label for="file-picker">Choose local MP4</label>
-  <span id="status" role="status" aria-live="polite">Waiting for a video file.</span>
+  <span id="status" role="status" aria-live="polite">Loading the included sample video…</span>
 </div>
 
 <h2>What each attribute means</h2>
@@ -58,7 +58,7 @@ let objectUrl=null;
 function showVideo(){placeholder.hidden=true;status.textContent='Video loaded. It is muted and set to loop; use the player controls to play or pause.'}
 function showPlaceholder(){placeholder.hidden=false}
 video.addEventListener('loadeddata',showVideo);
-video.addEventListener('error',()=>{if(!objectUrl){showPlaceholder();status.textContent='No sample.mp4 found. Choose a local MP4 or add sample.mp4 beside this page.'}});
+video.addEventListener('error',()=>{if(!objectUrl){showPlaceholder();status.textContent='Sample video unavailable. Choose another local MP4 to continue the demo.'}});
 picker.addEventListener('change',()=>{
   const file=picker.files && picker.files[0];
   if(!file)return;

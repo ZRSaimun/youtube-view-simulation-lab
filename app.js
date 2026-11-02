@@ -33,6 +33,14 @@
     fallback.textContent = 'YouTube thumbnail unavailable';
     thumbnail.replaceWith(fallback);
   });
+  setTimeout(() => {
+    if (thumbnail.isConnected && (!thumbnail.complete || thumbnail.naturalWidth === 0)) {
+      const fallback = document.createElement('div');
+      fallback.className = 'thumbnail-fallback';
+      fallback.textContent = 'YouTube thumbnail unavailable';
+      thumbnail.replaceWith(fallback);
+    }
+  }, 5000);
   async function refreshReal() {
     const key = keyInput.value.trim() || sessionStorage.getItem('viewlab-youtube-key') || '';
     if (!key) { statusEl.textContent = 'API KEY NOT SET'; statusEl.style.color = '#dfb36c'; return; }

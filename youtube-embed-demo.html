@@ -17,7 +17,7 @@
 <form id="embed-form">
   <label class="sr-only" for="youtube-url">YouTube video URL or video ID</label>
   <div class="row">
-    <input id="youtube-url" type="url" value="https://www.youtube.com/watch?v=M7lc1UVf-VE" placeholder="https://www.youtube.com/watch?v=VIDEO_ID" autocomplete="url">
+    <input id="youtube-url" type="url" value="https://www.youtube.com/watch?v=vv6Cn16scjU" placeholder="https://www.youtube.com/watch?v=VIDEO_ID" autocomplete="url">
     <button type="submit">Load video</button>
   </div>
 </form>
@@ -75,6 +75,7 @@ form.addEventListener('submit',(event)=>{
   snippet.textContent=code;
   output.classList.add('show');
 });
+form.requestSubmit();
 document.querySelector('#copy').addEventListener('click',async()=>{
   try{await navigator.clipboard.writeText(snippet.textContent);message.textContent='Embed code copied.'}
   catch{message.textContent='Select the code block and copy it.'}

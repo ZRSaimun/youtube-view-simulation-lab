@@ -6,14 +6,14 @@
 <meta name="theme-color" content="#0b1020">
 <title>YouTube Embed Demo — Link Converter</title>
 <style>
-:root{color-scheme:dark;font:16px/1.55 system-ui,sans-serif;background:#0b1020;color:#eef2ff}*{box-sizing:border-box}body{margin:0;min-height:100vh;padding:24px;display:grid;place-items:center}.card{width:min(820px,100%);background:#151d31;border:1px solid #34415e;border-radius:22px;padding:clamp(22px,5vw,42px);box-shadow:0 24px 80px #0007}h1{margin:0 0 8px;font-size:clamp(1.8rem,5vw,2.65rem);line-height:1.12}.eyebrow{color:#9fb4d9;font-size:.77rem;letter-spacing:.13em;font-weight:750}.lede,p{color:#c2cce0}.row{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0 10px}input{flex:1 1 360px;min-width:0;background:#0b1020;border:1px solid #435471;border-radius:10px;padding:13px 14px;color:#fff;font:inherit}button{border:0;border-radius:10px;padding:12px 18px;background:#83d9cf;color:#081217;font-weight:800;cursor:pointer}button.secondary{background:#2d3d57;color:#eef2ff;border:1px solid #4a5b77}.hint{font-size:.88rem;color:#9eacc1}.player{margin:22px 0;background:#080c16;border:1px solid #34415e;border-radius:14px;overflow:hidden;aspect-ratio:16/9;display:grid;place-items:center}.player iframe{display:block;width:100%;height:100%;border:0}.empty{padding:20px;text-align:center;color:#aebbd0}.message{min-height:1.5em;color:#f2c27a;font-size:.91rem}.output{display:none;margin-top:20px}.output.show{display:block}.output-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}h2{font-size:1.05rem;margin:0}.snippet{display:block;width:100%;margin-top:10px;padding:16px;background:#080c16;border:1px solid #34415e;border-radius:12px;color:#a9f0df;white-space:pre-wrap;overflow-wrap:anywhere;user-select:all}.note{border-left:3px solid #69e2cf;padding-left:13px;margin-top:20px;font-size:.92rem}.back{display:inline-block;margin-top:20px;color:#a9f0df}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(max-width:560px){body{padding:12px}.card{padding:21px 17px;border-radius:17px}.row button{width:100%}.player{border-radius:10px}}
+:root{color-scheme:dark;font:16px/1.55 system-ui,sans-serif;background:#0b1020;color:#eef2ff}*{box-sizing:border-box}body{margin:0;min-height:100vh;padding:24px;display:grid;place-items:center}.card{width:min(820px,100%);background:#151d31;border:1px solid #34415e;border-radius:22px;padding:clamp(22px,5vw,42px);box-shadow:0 24px 80px #0007}h1{margin:0 0 8px;font-size:clamp(1.8rem,5vw,2.65rem);line-height:1.12}.eyebrow{color:#9fb4d9;font-size:.77rem;letter-spacing:.13em;font-weight:750}.lede,p{color:#c2cce0}.row{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0 10px}input{flex:1 1 360px;min-width:0;background:#0b1020;border:1px solid #435471;border-radius:10px;padding:13px 14px;color:#fff;font:inherit}button{border:0;border-radius:10px;padding:12px 18px;background:#83d9cf;color:#081217;font-weight:800;cursor:pointer}button.secondary{background:#2d3d57;color:#eef2ff;border:1px solid #4a5b77}.hint{font-size:.88rem;color:#9eacc1}.player{margin:22px 0;background:#080c16;border:1px solid #34415e;border-radius:14px;overflow:hidden;aspect-ratio:16/9;display:grid;place-items:center}.player iframe{display:block;width:100%;height:100%;border:0}.empty{padding:20px;text-align:center;color:#aebbd0}.message{min-height:1.5em;color:#f2c27a;font-size:.91rem}.message.success{color:#a9f0df}.output{display:none;margin-top:20px}.output.show{display:block}.output-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}h2{font-size:1.05rem;margin:0}.snippet{display:block;width:100%;margin-top:10px;padding:16px;background:#080c16;border:1px solid #34415e;border-radius:12px;color:#a9f0df;white-space:pre-wrap;overflow-wrap:anywhere;user-select:all}.note{border-left:3px solid #69e2cf;padding-left:13px;margin-top:20px;font-size:.92rem}.back{display:inline-block;margin-top:20px;color:#a9f0df}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(max-width:560px){body{padding:12px}.card{padding:21px 17px;border-radius:17px}.row button{width:100%}.player{border-radius:10px}}
 </style>
 </head>
 <body>
 <main class="card">
 <p class="eyebrow">CLASS DEMO · YOUTUBE EMBED URL</p>
 <h1>Paste a YouTube link</h1>
-<p class="lede">Load one viewer-controlled YouTube player and generate its embed-code snippet. The sample link below uses the video ID shown in YouTube’s official IFrame API documentation.</p>
+<p class="lede">Paste a YouTube link and click Load video. When the player appears, click YouTube’s red Play button inside it to start. Loading the player does not start playback.</p>
 <form id="embed-form">
   <label class="sr-only" for="youtube-url">YouTube video URL or video ID</label>
   <div class="row">
@@ -21,7 +21,7 @@
     <button type="submit">Load video</button>
   </div>
 </form>
-<p class="hint">Paste a youtube.com/watch link, youtu.be link, /embed/ link, or an 11-character video ID.</p>
+<p class="hint">Accepts youtube.com/watch, youtu.be, /embed/, /shorts/, and 11-character video IDs. After loading, press Play inside the YouTube player.</p>
 <p class="message" id="message" role="status" aria-live="polite"></p>
 <div class="player" id="player"><div class="empty">Press “Load video” to show the sample player.</div></div>
 <section class="output" id="output">
@@ -60,8 +60,9 @@ function getVideoId(value){
 form.addEventListener('submit',(event)=>{
   event.preventDefault();
   const id=getVideoId(input.value);
-  if(!id){message.textContent='That link did not contain a valid YouTube video ID. Check the URL and try again.';return}
-  message.textContent='';
+  if(!id){message.classList.remove('success');message.textContent='That link did not contain a valid YouTube video ID. Check the URL and try again.';return}
+  message.textContent='The player is ready. Click the red Play button inside it to start the video.';
+  message.classList.add('success');
   const frame=document.createElement('iframe');
   frame.src='https://www.youtube-nocookie.com/embed/'+id;
   frame.title='YouTube video player';

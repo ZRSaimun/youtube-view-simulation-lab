@@ -51,8 +51,10 @@
       const response = await fetch(url);
       const data = await response.json();
       if (!response.ok || data.error) throw new Error(data.error?.message || 'API request failed');
-      const count = Number(data.items?.[0]?.statistics?.viewCount);
-      if (!Number.isFinite(count)) throw new Error('No public view count returned for this video.');
+      const rawCount = data.items?.[0]?.statistics?.viewCount;
+      if (typeof rawCount !== 'string' || !/^(0|[1-9]\d*)$/.test(rawCount)) throw new Error('No valid public view count returned for this video.');
+      const count = Number(rawCount);
+      if (!Number.isSafeInteger(count)) throw new Error('Public view count exceeds the supported range.');
       realEl.textContent = fmt(count);
       genuineBaseline = count;
       $('#baseline-note').textContent = `Genuine count baseline: ${fmt(count)} views · captured ${new Date().toLocaleString()}.`;
